@@ -451,9 +451,126 @@ pysick.version.about()
 
 Displays PySick version info.
 
+# PySick EPP Module — Detailed Overview
+
+The **EPP (Extra Advanced)** module is a  Python game engine component designed for fast 2D graphics rendering and input handling.  
+It leverages **NumPy** for efficient framebuffer manipulation, **Pillow (PIL)** for drawing operations, and **Tkinter** for windowing and GUI widgets.
+
+---
+
+## Features
+
+- SuperSonic speed, use this if you are tired with `pysick.ingine`
+- Compiled with C, PIL, NumPy
+- High-performance framebuffer using NumPy arrays  
+- Drawing primitives: rectangles, circles, ovals, points, lines, polygons, and text  
+- Image blitting from PIL images or file paths  
+- Keyboard and mouse input support with key/mouse state tracking  
+- Simple GUI widget wrappers for labels, buttons, entries, checkboxes, radio buttons, sliders, and textboxes  
+- Easy game loop management with frame rate control  
+- Window creation and management via Tkinter with direct framebuffer display  
+
+---
+
+## Installation
+
+Make sure you have these installed:
+
+```bash
+pip install numpy
+```
+---
+### Window and Framebuffer
+
+- **`eppWindowInit(width=800, height=600, title="EPP Window")`**  
+  Initialize the window and framebuffer. Must be called before any drawing.
+
+- **`eppSlap()`**  
+  Update the Tkinter window by blitting the current framebuffer.
+
+- **`eppRun(update_fn=None, fps=60)`**  
+  Runs the main game loop. Calls `update_fn` every frame, then updates the display.
+
+- **`eppQuit()`**  
+  Closes the window and stops the loop.
+
+---
+### Drawing Primitives
+
+- **`eppFillColor(r, g, b)`**  
+  Fill the entire screen with a solid color.
+
+- **`eppDrawRect(x, y, w, h, color)`**  
+  Draw a filled rectangle.
+
+- **`eppDrawCircle(cx, cy, r, color)`**  
+  Draw a filled circle.
+
+- **`eppDrawOval(x, y, w, h, color)`**  
+  Draw a filled ellipse.
+
+- **`eppDrawPoint(x, y, color)`**  
+  Draw a single pixel point.
+
+- **`eppDrawLine(x1, y1, x2, y2, color, width=1)`**  
+  Draw a line between two points.
+
+- **`eppDrawPolygon(points, color)`**  
+  Draw a filled polygon from a list of (x, y) points.
+
+- **`eppDrawText(x, y, text, color, font=None)`**  
+  Draw text at the specified position.
+
+- **`eppDrawImage(x, y, src)`**  
+  Draw an image from a PIL Image object or file path.
+
+---
+### Input Handling
+
+- **`eppInput(key)`**  
+  Check if a keyboard key is currently pressed. Keys use Tkinter key symbols (e.g., `'a'`, `'Left'`, `'Escape'`).
+
+- **`eppMousePos()`**  
+  Get current mouse position `(x, y)`.
+
+- **`eppMouseButton(button)`**  
+  Check if a mouse button (1=left, 2=middle, 3=right) is pressed.
+
+---
+### GUI Widgets
+
+*Call* `eppGuiSetRoot(root)` *after window initialization to use GUI widgets.*
+
+- **`eppGuiLabel(text, x, y, font, color)`** — Text label  
+- **`eppGuiButton(text, x, y, func, width, height)`** — Button with callback  
+- **`eppGuiEntry(x, y, width)`** — Text entry field  
+- **`eppGuiCheckButton(text, x, y, variable)`** — Checkbox  
+- **`eppGuiRadioButton(text, x, y, variable, value)`** — Radio button  
+- **`eppGuiSlider(x, y, from_, to, orient, length)`** — Slider/scale  
+- **`eppGuiTextBox(x, y, width, height)`** — Multi-line text box  
+- **`eppGuiClear()`** — Remove all GUI widgets  
+
+---
+## Example Usage
+
+```python
+from epp import *
+
+def update():
+    eppFillColor(0, 0, 0)  # Clear screen black
+    eppDrawRect(100, 100, 200, 150, (255, 0, 0))  # Red rectangle
+    eppDrawCircle(400, 300, 75, (0, 255, 0))      # Green circle
+    eppDrawText(10, 10, "Hello PySick!", (255, 255, 255))
+
+eppWindowInit(640, 480, "epp!")
+eppRun(update)
+eppQuit()
+```
 ---
 
 That’s it — you’re ready to build cool stuff!
+---
+
 
 
 
